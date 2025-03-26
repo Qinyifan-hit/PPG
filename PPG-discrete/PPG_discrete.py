@@ -123,14 +123,14 @@ class PPG_Agent(object):
                 Aux_loss = 0.5 * F.mse_loss(V_aux, Aux_v[Ind_aux_b])
                 Kl_loss = torch.distributions.kl_divergence(old_pi, new_pi).mean()
                 Joint_loss = Aux_loss + Kl_loss
-                Joint_loss.backward()
                 self.A_optimizer.zero_grad()
+                Joint_loss.backward()
                 self.A_optimizer.step()
 
                 V = self.Critic(Aux_s[Ind_aux_b])
                 V_loss = 0.5 * F.mse_loss(V, Aux_v[Ind_aux_b])
-                V_loss.backward()
                 self.C_optimizer.zero_grad()
+                V_loss.backward()
                 self.C_optimizer.step()
 
     def save(self, EnvName, timestep):
