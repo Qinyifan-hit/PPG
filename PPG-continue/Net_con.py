@@ -19,8 +19,8 @@ class A_net_beta(nn.Module):
 
     def froward(self, s):
         p = self.A(s)
-        alpha = F.softplus(self.alpha(p)) + 1.0
-        beta = F.softplus(self.beta(p)) + 1.0
+        alpha = F.softplus(self.alpha(p)) + 1e-5
+        beta = F.softplus(self.beta(p)) + 1e-5
         return alpha, beta
 
     def get_distri(self, s):
